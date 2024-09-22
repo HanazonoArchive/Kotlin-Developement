@@ -1,7 +1,7 @@
 package org.hanazono
 
 fun main(){
-    var players: MutableMap<String, Int?> = mutableMapOf("Abas" to 11, "Agsoy" to 12, "Andong" to 13, "Asan" to 14,
+    val players: MutableMap<String, Int?> = mutableMapOf("Abas" to 11, "Agsoy" to 12, "Andong" to 13, "Asan" to 14,
                                                         "Baguio" to 21, "Bardago" to 22, "Barnido" to 23, "Bravo" to 24,
                                                         "Cabarde" to 31, "Cahilig" to 32, "Ching" to 33, "Coyoca" to 34,
                                                         "Dingal" to 41, "Dionaldo" to 42, "Duhaylungsod" to 43, "Ednilan" to 44,
@@ -18,7 +18,7 @@ fun main(){
     players.remove("Pechayco")
     players.remove("Dingal")
 
-    var questionsAvailable = 10;
+    var questionsAvailable = 10
 
     while (questionsAvailable != 0){
         val die1 = (1..10).random()
@@ -43,8 +43,8 @@ fun main(){
             println("$selectedPlayer has been skipped.\n")
         } else {
             println("No Matches found.\n")
-            questionsAvailable += 1;
+            questionsAvailable += 1
         }
-        questionsAvailable -= 1;
+        questionsAvailable -= 1
     }
 }
