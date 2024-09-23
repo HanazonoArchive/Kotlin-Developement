@@ -89,6 +89,93 @@ fun main(){
 
     //REFER TO (Kotlin-Playground/ControlFlowPlayground1.kt)
 
-    // Continue LINK: (https://kotlinlang.org/docs/kotlin-tour-control-flow.html#loops)
+
+    //================================================================================//
+
+
+    // Loops
+
+    //= The two most common loop structures in programming are 'for' and 'while'. Use for to iterate over a
+    // range of values and perform an action. Use 'while' to continue an action until a particular condition
+    // is satisfied.
+
+    // For - Loops
+    //= Using you new knowledge of ranges, you can create 'for' loop that iterates over numbers 1 to 5
+    // and prints the number each time.
+    //= Place the iterator and range within parentheses '()' with keyword 'in'. Add the action you want
+    // to complete within curly braces '[]:'
+
+    for (number in 1..5){
+        // number is the iterator and 1..5 is the range
+        println(number)
+    }
+    // OUTPUT: 1 2 3 4 5
+
+    //= Collections can also be iterated over by loops:
+
+    val cakes = listOf("carrot", "cheese", "chocolate")
+
+    for (cake in cakes) {
+        println("Yummy, it's a $cake cake!")
+    }
+    /* OUTPUT:
+    * Yummy, it's a carrot cake!
+    * Yummy, it's a cheese cake!
+    * Yummy, it's a chocolate cake!*/
+
+
+    //================================================================================//
+
+
+    // While - Loops
+
+    // 'while' can be used in 2 ways:
+
+    //= To execute a code block while a conditional expression is true. ('while')
+    //= To execute the code block first then check the conditional expressions. ('do-while')
+
+    // In the first use case ('while'):
+
+    //= Declare the conditional expression for your while loop to continue within parentheses '()'
+    //= Add the action you want to complete within curly braces '{}'
+
+    var cakesEaten = 0
+
+    while (cakesEaten < 3){
+        println("Eat a cake")
+        cakesEaten++
+    }
+    // OUTPUT:
+    // Eat a cake
+    // Eat a cake
+    // Eat a cake
+
+    // In the second use case (do-while):
+
+    //= Declare the conditional expression for your while loop to continue within parentheses '()'
+    //= Define the action you want to complete within curly braces '{}' with the keyword do
+
+    cakesEaten = 0
+    var cakesBaked = 0
+
+    while (cakesEaten < 3){
+        println("Eat a cake")
+        cakesEaten++
+    }
+    do {
+        println("Bake a cake")
+        cakesBaked++
+    } while (cakesBaked < cakesEaten)
+    /* OUTPUT:
+    * Eat a cake
+    * Eat a cake
+    * Eat a cake
+    * Bake a cake
+    * Bake a cake
+    * Bake a cake */
+
+    //REFER TO (Kotlin-Playground/ControlFlowPlayground2.kt) - for Exercise
+    // Continue LINK: (https://kotlinlang.org/docs/kotlin-tour-functions.html#named-arguments)
+
 
 }
