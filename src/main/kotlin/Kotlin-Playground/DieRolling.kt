@@ -68,7 +68,7 @@ class DiceRollerApp : Application() {
     private var lastRollD4: Int = 0
 
     private fun rollDice(gc: GraphicsContext, resultText: Text) {
-        val timeline = Timeline(KeyFrame(Duration.seconds(0.1), {
+        val timeline = Timeline(KeyFrame(Duration.seconds(0.2), {
             // Roll the dice
             lastRollD10 = Random.nextInt(1, 11)
             lastRollD4 = Random.nextInt(1, 5)
@@ -77,7 +77,7 @@ class DiceRollerApp : Application() {
             resultText.text = "Rolling... (Roll: $lastRollD10$lastRollD4)"
         }))
 
-        timeline.cycleCount = 20
+        timeline.cycleCount = 15
 
         timeline.setOnFinished {
             val combineDice = "$lastRollD10$lastRollD4"
@@ -88,6 +88,7 @@ class DiceRollerApp : Application() {
             if (matchingPlayers.isNotEmpty()) {
                 val selectedPlayer = matchingPlayers.keys.random()
                 resultText.text = "Matched: $selectedPlayer (Roll: $combineDice)"
+                //println("Matched: $selectedPlayer (Roll: $combineDice)")
                 players.remove(selectedPlayer)
             } else {
                 resultText.text = "No matches found for roll: $combineDice"
