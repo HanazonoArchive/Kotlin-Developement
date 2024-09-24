@@ -78,7 +78,7 @@ class DiceRollerApp : Application() {
             resultText.text = "Rolling... (Roll: $lastRollD10$lastRollD4)"
         }))
 
-        timeline.cycleCount = secureRandom.nextInt(15, 30)
+        timeline.cycleCount = secureRandom.nextInt(1,50)
 
         timeline.setOnFinished {
             val combineDice = "$lastRollD10$lastRollD4"
