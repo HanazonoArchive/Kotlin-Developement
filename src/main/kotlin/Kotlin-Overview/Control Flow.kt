@@ -175,7 +175,4 @@ fun main(){
     * Bake a cake */
 
     //REFER TO (Kotlin-Playground/ControlFlowPlayground2.kt) - for Exercise
-    // Continue LINK: (https://kotlinlang.org/docs/kotlin-tour-functions.html#named-arguments)
-
-
 }
