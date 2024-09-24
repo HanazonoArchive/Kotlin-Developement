@@ -14,7 +14,7 @@ import javafx.scene.text.Font
 import javafx.scene.text.Text
 import javafx.stage.Stage
 import javafx.util.Duration
-import kotlin.random.Random
+import java.security.SecureRandom
 
 class DiceRollerApp : Application() {
 
@@ -31,13 +31,15 @@ class DiceRollerApp : Application() {
         "Tosorero" to 101, "Travilla" to 102, "Villaneva" to 103, "Ycong" to 104
     )
 
-    // Remove reporters
+    // Reporters
     init {
         players.remove("Agsoy")
         players.remove("Palma")
         players.remove("Pechayco")
         players.remove("Dingal")
     }
+
+    private val secureRandom = SecureRandom()
 
     override fun start(primaryStage: Stage) {
         val canvas = Canvas(300.0, 300.0)
@@ -48,7 +50,7 @@ class DiceRollerApp : Application() {
         resultText.font = Font(20.0)
         resultText.fill = Color.BLACK
 
-        val rollButton = Button("Roll Dice")
+        val rollButton = Button("Dice Roller!")
 
         rollButton.setOnAction {
             rollDice(gc, resultText)
@@ -68,16 +70,15 @@ class DiceRollerApp : Application() {
     private var lastRollD4: Int = 0
 
     private fun rollDice(gc: GraphicsContext, resultText: Text) {
-        val timeline = Timeline(KeyFrame(Duration.seconds(0.1), {
-            // Roll the dice
-            lastRollD10 = Random.nextInt(1, 11)
-            lastRollD4 = Random.nextInt(1, 5)
+        val timeline = Timeline(KeyFrame(Duration.seconds(0.2), {
+            lastRollD10 = secureRandom.nextInt(1, 11)
+            lastRollD4 = secureRandom.nextInt(1, 5)
             drawDice(gc, lastRollD10, lastRollD4)
 
             resultText.text = "Rolling... (Roll: $lastRollD10$lastRollD4)"
         }))
 
-        timeline.cycleCount = 20
+        timeline.cycleCount = secureRandom.nextInt(15, 30)
 
         timeline.setOnFinished {
             val combineDice = "$lastRollD10$lastRollD4"
@@ -86,8 +87,9 @@ class DiceRollerApp : Application() {
             }
 
             if (matchingPlayers.isNotEmpty()) {
-                val selectedPlayer = matchingPlayers.keys.random()
+                val selectedPlayer = matchingPlayers.keys.shuffled(secureRandom).first()
                 resultText.text = "Matched: $selectedPlayer (Roll: $combineDice)"
+                println("Matched: $selectedPlayer (Roll: $combineDice)")
                 players.remove(selectedPlayer)
             } else {
                 resultText.text = "No matches found for roll: $combineDice"
