@@ -70,7 +70,7 @@ class DiceRollerApp : Application() {
     private var lastRollD4: Int = 0
 
     private fun rollDice(gc: GraphicsContext, resultText: Text) {
-        val timeline = Timeline(KeyFrame(Duration.seconds(0.2), {
+        val timeline = Timeline(KeyFrame(Duration.seconds(0.1), {
             lastRollD10 = secureRandom.nextInt(1, 11)
             lastRollD4 = secureRandom.nextInt(1, 5)
             drawDice(gc, lastRollD10, lastRollD4)
@@ -92,7 +92,7 @@ class DiceRollerApp : Application() {
                 println("Matched: $selectedPlayer (Roll: $combineDice)")
                 players.remove(selectedPlayer)
             } else {
-                resultText.text = "No matches found for roll: $combineDice"
+                resultText.text = "Player Skipped: $combineDice"
             }
         }
 

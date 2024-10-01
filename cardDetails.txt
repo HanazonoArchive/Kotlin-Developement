@@ -1,0 +1,3 @@
+Serial: 123456 | Grade: SR | Price: 85.43 | Card Name: USS Enterpise (Azur Lane)
+Serial: 654321 | Grade: PTR | Price: 48.21 | Card Name: HMS Belfast (Azur Lane)
+Serial: 123456 | Grade: SR | Price: 54.23 | Card Name: USS Enterpise (Azur Lane)
