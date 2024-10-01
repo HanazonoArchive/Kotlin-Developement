@@ -7,10 +7,10 @@ import java.sql.SQLException
 class CardManagerDB(private val connection: Connection) {
 
     // Add a card to the database
-    fun addCard(serial: String, grading: String, price: Float, cardName: String) {
-        val query = "INSERT INTO cards (serial, grading, price, card_name) VALUES (?, ?, ?, ?)"
+    fun addCard(serialNumber: String, grading: String, price: Float, cardName: String) {
+        val query = "INSERT INTO cards (serial_number, grading, price, name) VALUES (?, ?, ?, ?)"
         val statement = connection.prepareStatement(query)
-        statement.setString(1, serial)
+        statement.setString(1, serialNumber)
         statement.setString(2, grading)
         statement.setFloat(3, price)
         statement.setString(4, cardName)
@@ -19,18 +19,18 @@ class CardManagerDB(private val connection: Connection) {
     }
 
     // Search for a card by serial number
-    fun searchCard(serial: String): Map<String, Any>? {
-        val query = "SELECT * FROM cards WHERE serial = ?"
+    fun searchCard(serialNumber: String): Map<String, Any>? {
+        val query = "SELECT * FROM cards WHERE serial_number = ?"
         val statement = connection.prepareStatement(query)
-        statement.setString(1, serial)
+        statement.setString(1, serialNumber)
         val resultSet = statement.executeQuery()
 
         return if (resultSet.next()) {
             mapOf(
-                "serial" to resultSet.getString("serial"),
+                "serial_number" to resultSet.getString("serial_number"),
                 "grading" to resultSet.getString("grading"),
                 "price" to resultSet.getFloat("price"),
-                "card_name" to resultSet.getString("card_name")
+                "name" to resultSet.getString("name")
             )
         } else {
             println("Card not found!")
@@ -39,22 +39,22 @@ class CardManagerDB(private val connection: Connection) {
     }
 
     // Update a card's details
-    fun updateCard(serial: String, newGrading: String, newPrice: Float, newCardName: String) {
-        val query = "UPDATE cards SET grading = ?, price = ?, card_name = ? WHERE serial = ?"
+    fun updateCard(serialNumber: String, newGrading: String, newPrice: Float, newCardName: String) {
+        val query = "UPDATE cards SET grading = ?, price = ?, name = ? WHERE serial_number = ?"
         val statement = connection.prepareStatement(query)
         statement.setString(1, newGrading)
         statement.setFloat(2, newPrice)
         statement.setString(3, newCardName)
-        statement.setString(4, serial)
+        statement.setString(4, serialNumber)
         statement.executeUpdate()
         println("Card updated successfully!")
     }
 
     // Delete a card by serial number
-    fun deleteCard(serial: String) {
-        val query = "DELETE FROM cards WHERE serial = ?"
+    fun deleteCard(serialNumber: String) {
+        val query = "DELETE FROM cards WHERE serial_number = ?"
         val statement = connection.prepareStatement(query)
-        statement.setString(1, serial)
+        statement.setString(1, serialNumber)
         statement.executeUpdate()
         println("Card deleted successfully!")
     }
