@@ -8,14 +8,23 @@ class CardManagerDB(private val connection: Connection) {
 
     // Add a card to the database
     fun addCard(serialNumber: String, grading: String, price: Float, cardName: String) {
-        val query = "INSERT INTO cards (serial_number, grading, price, name) VALUES (?, ?, ?, ?)"
+        val query = "SELECT * FROM cards WHERE serial_number = ?"
         val statement = connection.prepareStatement(query)
         statement.setString(1, serialNumber)
-        statement.setString(2, grading)
-        statement.setFloat(3, price)
-        statement.setString(4, cardName)
-        statement.executeUpdate()
-        println("Card added to the database successfully!")
+        val resultSet = statement.executeQuery()
+
+        if (resultSet.next()) {
+            println("Card Already Exists!")
+        } else {
+            val query = "INSERT INTO cards (serial_number, grading, price, name) VALUES (?, ?, ?, ?)"
+            val statement = connection.prepareStatement(query)
+            statement.setString(1, serialNumber)
+            statement.setString(2, grading)
+            statement.setFloat(3, price)
+            statement.setString(4, cardName)
+            statement.executeUpdate()
+            println("Card added to the database successfully!")
+        }
     }
 
     // Search for a card by serial number
@@ -36,6 +45,24 @@ class CardManagerDB(private val connection: Connection) {
             println("Card not found!")
             null
         }
+    }
+
+    fun displayCard() {
+        val query = "SELECT * FROM cards"
+        val statement = connection.prepareStatement(query)
+        val resultSet = statement.executeQuery()
+
+        while (resultSet.next()) {
+            val cardData = mapOf(
+                "serial_number" to resultSet.getString("serial_number"),
+                "grading" to resultSet.getString("grading"),
+                "price" to resultSet.getFloat("price"),
+                "name" to resultSet.getString("name")
+            )
+            println(cardData)
+        }
+        resultSet.close()
+        statement.close()
     }
 
     // Update a card's details
@@ -65,7 +92,8 @@ fun main() {
     val cardManagerDB = CardManagerDB(connection)
 
     println("Card Collection Inquiry")
-    println("[0] - Add Card\n[1] - Search Card\n[2] - Remove Card\n[3] - Update Card")
+    println("[0] - Add Card\n[1] - Search Card\n[2] - Remove Card\n[3] - Update Card\n[4] - Display Card")
+    print("Select <0, 1, 2, 3, 4>: ")
     val options = readln().toInt()
 
     when (options) {
@@ -109,6 +137,10 @@ fun main() {
             val newCardName = readln()
 
             cardManagerDB.updateCard(serial, newGrading, newPrice, newCardName)
+        }
+        4 -> {
+            println("[4] - Display Card")
+            cardManagerDB.displayCard()
         }
     }
 }
